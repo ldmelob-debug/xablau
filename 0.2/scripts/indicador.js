@@ -26,7 +26,7 @@ class Indicador {
 
         ctx.font = `bold ${tela.dimensao * this.tamanho}px Copperplate Gothic`;
         ctx.fillStyle = 'rgb(220, 180, 40)';
-        ctx.fillText(this.valor, this.x, this.y);
+        ctx.fillText(this.valor, this.x * tela.dimensao, this.y * tela.dimensao);
 
     }
 

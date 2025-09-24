@@ -13,6 +13,8 @@ class Controle {
         this.ligar=this.ligar.bind(this);
         this.desligar=this.desligar.bind(this);
         this.mover=this.mover.bind(this);
+        document.body.addEventListener('keydown', this.teclado);
+        document.body.addEventListener('keyup', this.desligaTeclado);
         cv.addEventListener('mousedown', this.ligar);
         cv.addEventListener('mouseup', this.desligar);
         cv.addEventListener('mouseleave', this.desligar);
@@ -23,6 +25,35 @@ class Controle {
         cv.addEventListener('contextmenu', function(event) { event.preventDefault();})
 
     }
+    //  Desligar controle do teclado
+    desligaTeclado() {
+        controle.movendo = false;
+    }
+    //  Controle via teclado
+    teclado(e) {
+        let salto = 30;
+        switch(e.key) {
+            case 'ArrowUp':
+                controle.pular = true;
+                break;
+            case 'ArrowLeft':
+                controle.posia = jogo.tamanho[0] / -2;
+                break;
+
+            case 'ArrowRight':
+                controle.posia = jogo.tamanho[0] / 2;
+                break;
+        }
+        console.log(controle.posia);
+        if (controle.posia > jogo.tamanho[0] /2) {
+            controle.posia = jogo.tamanho[0] /2;
+        } else if (controle.posia < jogo.tamanho[0] / -2) {
+            controle.posia = -jogo.tamanho[0] /2;
+        }
+        controle.movendo = true;
+
+    }
+
     //Retornar offset
     offset(e) {
         let x;
@@ -61,14 +92,13 @@ class Controle {
             } else if(this.posia<this.posi) {
                 this.posi-=300*dt;
             }
-            if (this.posY - this.atuY > 20) {
+            if (this.posY - this.atuY > 40) {
                 this.pular = true;
             }
             //  Define a posição Y do mouse com a atual.
-            
+            this.posY = this.atuY;
         }
-        
-        this.posY = this.atuY;
+
     }
 
     //  Mouse e clicado
@@ -104,5 +134,3 @@ class Controle {
         
     }
 }
-
-
