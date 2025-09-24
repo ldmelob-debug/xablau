@@ -1,0 +1,27 @@
+IMPLEMENTAÇÕES PARA A VERSÃO 0.2
+
+AJUSTAR GERAÇÃO DOS PINHEIROS:
+gerarPinheiros > gerarObjetos
+a função gerarPinheiros passa a se chaar gerarObjetos no arquivo jogo.js
+a lógica da função é alterada
+
+NOVA CLASSE OBSTACULO:
+class Obstaculo
+engloba funções que antes eram do pinheiro que são competentes a todos os obstaculos.
+
+NOVO OBJETO PEDRA:
+class Pedra
+comportamento de obstaculo.
+
+
+FUNÇÃO PULAR:
+alterações no controle: agora ele identifica o eixo Y para detectar a função de pulo.
+o jogador agora tem uma função que verifica a dimensão de uma parte.
+o jogador tem a função pulo().
+a função pulo é chamada no atualizar(delta) do jogador.
+os atributos altura, forcaPulo, estadoPulo e tempoPulo foram adicionadas ao snowboard.
+o jogador consegue evitar obstaculos ao pular.
+
+AJUSTE NA LOGICA DE DAR PONTOS:
+agora os obstaculos dão os pontos assim que são ultrapassados pelo jogador
+eles tem o atributo ultrapassado que evita que o jogador receba pontos duas vezes do memso obstaculo.

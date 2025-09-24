@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Snowboard Mountain - Documentação</title>
+    </head>
+    <body>
+        <h1> principal.js </h1>
+        <br>
+        <h2> Execução direta </h2>
+        <p> Define o corpo da página (body), os recursos do jogo (classes Jogo, Tela, Controle e Loop). Inicia o loop do jogo.</p>
+        <p></p>
+        <br>
+        <h2> Funções </h2>
+        <p> <b>atualiza(delta):</b> atualiza aplicando toda a lógica do jogo.</p>
+        <p> <b>desenha():</b> desenha todos os objetos do jogo na tela</p>
+        <p> <b>iniciar():</b> inicia o jogo.</p>
+        <hr />
+        <h1>jogo.js</h1>
+        <br>
+        <h2> Classes </h2>
+        <p>  <b> Jogo:</b> esta classe possui o tamanho do jogo, a proporcao dele em relação a tela, os objetos do jogo, a semente de aleatoriedade, a velocidade do jogo, a aceleração do jogador, a pontuação do jogador e o próprio jogador. Todas as funções deste arquivo são pertencentes a esta classe</p>
+        <br>
+        <h3> Jogo: Funções </h3>
+        <p> <b> removerObjeto(obj):</b> remove o objeto 'obj' do jogo.</p>
+        <p> <b> atualizar(delta):</b> chama a atualização e informa o delta do tempo para todos os objetos e para o jogador. </p>
+        <p> <b> desenhar(ctx): </b> avisa para todos os objetos desenharem no canvas 'ctx'. </p>
+        <p> <b> gerarPinheiro():</b> gera pinheiros aleatoriamente. </p>
+        <p> <b> </b> </p>
+        <hr />
+        <h1> tela.js </h1>
+        <br>
+        <h2> Classes </h2>
+        <p> <b> Tela: </b> define a tela, com sua cor de fundo, seu tamanho, canvas, contexto 2d, dimensao (em relação ao tamanho do jogo)</p>
+        <br>
+        <h3> Tela: Funções </h3>
+        <p> <b> ajustar():</b> ajusta a tela de acordo com o cliente. </p>
+        <p> <b> novoCanvas(): </b>cria o objeto canvas que será usado como a tela do jogo. </p>
+        <hr />
+        <h1> loop.js </h1>
+        <br>
+        <h2> Classes </h2>
+        <p> <b> Loop: </b> possui as informações das funções gerais de atualizar e desenhar, o fps determinado, a duração de cada frame baseado no fps, a hora da ultima atualização, a quantidade de tempo acumulado e se está executando (boolean).</p>
+        <br>
+        <h3> Loop: Funções </h3>
+        <p> <b> inicio():</b> inicia o loop determinando executando = verdadeiro. </p>
+        <p> <b> parar():</b> para o loop do jogo.</p>
+        <p> <b> loop(agora): </b>mantém o loop do jogo atualizando no fps determinado enquanto estiver executando. </p>
+        <hr />
+        <h1> semente.js </h1>
+        <br>
+        <h2> Classes </h2>
+        <p> <b> Semente: </b> constrói uma nova semente para gerar valores aleatórios. </p>
+        <br>
+        <h3> Semente: Funções</h3>
+        <p> <b>decimal(): </b>gera um numero aleatório entre 0 e 1. </p>
+        <p> <b> entre(min, max):</b> gera um valor aleatório entre 'min' e 'max'. </p>
+        <hr />
+        <h1> objeto.js </h1>
+        <br>
+        <h2> Clases </h2>
+        <p> <b> Parte:</b> esta serve para compor os objetos. Elas guardam a posição (relativo à posição do objeto), o raio (se for um círculo), um ângulo (inicial e final) se for um círculo, o conjunto de vértices se for um poligono, o preenchimento dele e se ele colide (boolean).</p>
+        <p> <b> Objeto:</b> esta classe é composta por um conjunto de partes e representa os objetos do jogo (inclusive o jogador). Têm posição (x e y), seu conjunto de partes (mutáveis) e seu conjunto de partes originais (para recalcular rotações).</p>
+        <br>
+        <h3> Objeto: Funções </h3>
+        <p> <b> tamanho(): </b> itera sobre as partes para definir uma altura e uma largura para o objeto. </p>
+        <p> <b> raio(): </b> define um raio para o objeto, para finalidades de verificar se um objeto está próximo do outro. </p>
+        <p> <b> atualizar(): </b> realiza a atualização das informações do objeto. </p>
+        <p> <b> desenhar(): </b> desenha o objeto na tela.</p>
+        <hr />
+        <h1> objetos.js </h1>
+        <br>
+        <h2> Classes </h2>
+        <p> <b> Snowboard (Objeto): </b> possui velocidade, rotação e rotaçao almejada.  </p>
+        <p> <b> Pinheiro (Objeto): </b> possui altura pré-determinada para calcular suas partes. </p>
+        <br>
+        <h3> Snowboard (Objeto): Funções </h3>
+        <p> <b> bloqpos(): </b> bloquea o jogador de sair da tela.</p>
+        <p> <b> rodaPonto(x, y, entidade): </b> rotaciona as vértices de acordo com a rotação passada pelo controle. </p>
+        <p> <b> rodar():</b> recebe as informações do controle e faz a rotação das vértices.</p>
+        <p> <b> criarPartes():</b> cria as três partes da prancha: a base retangular e as duas pontas circulares.</p>
+        <p> <b> atualizar(delta):</b> recebe as informações do controle e atualiza velocidade, posição e rotação.</p>
+        <br>
+        <h3> Pinheiro (Objeto): Funções </h3>
+        <p> <b> variarCor(r, g, b): </b> varia o vermelho, verde e azul fornecidos aleatoriamente entre -30 e 30. </p>
+        <p> <b> criarPartes():</b> cria as partes do pinheiro: tronco e copas. </p>
+        <p> <b> atualizar(delta):</b> verifica se o objeto foi superado pelo jogador e remove ele ao sair do mapa.</p>
+        <hr />
+        <h1> desenho.js </h1>
+        <br>
+        <h2> Funções </h2>
+        <p><b> exibir(ctx, parte, x, y): </b>desenha a parte 'parte' na posição ('x', 'y') na tela 'ctx'.</p>
+        <hr />
+        <h1> colisao.js </h1>
+        <br>
+        <h2> Classes </h2>
+        <p> <b> Forma: </b>possui posicao, raio e vertices. Simplifica as partes como formas para facilitar a manipulação de dados no sistema de colisão.  </p>
+        <br>
+        <h3> Forma: Funções </h3>
+        <p> <b>verticesReais():</b> retorna o valor das vertices em sua posição global.</p>
+        <br>
+        <h2> Funções </h2>
+        <p> <b> distancia(p1, p2): </b> retorna a distância entre dois pontos (x, y).</p>
+        <p> <b> subtrair(v1, v2):</b> retorna a subtração de dois pontos (aresta)</p>
+        <p> <b> normal(vetor):</b> retorna o vetor perpendicular ao 'vetor'.</p>
+        <p> <b> normalizar(vetor):</b> retorna o valor de 'vetor' em uma base 1.</p>
+        <p> <b> colidem(objeto): </b> filtra as partes que podem colidir e as retornam como Forma.</p>
+        <p> <b> eixosPoligono(poligono): </b> retorna a lista de eixos de teste do poligono 'poligono'.</p>
+        <p> <b> eixosPoligonoCirculo(poligono, circulo):</b> retorna a lista de eixos de teste entre um poligono e um circulo.</p>
+        <p> <b> verificarCirculos(forma1, forma2): </b>verifica a colisão entre dois circulos. </p>
+        <p> <b> eixosUnicos(eixos):</b> remove os eixos repetidos de um conjunto.</p>
+        <p> <b> projetarVertice(vertice, eixo):</b> retorna o valor projetado da 'vertice' no 'eixo' </p>
+        <p> <b> limiteCirculo(forma, eixo):</b> retorna os valores minimo e maximo de um circulo em um eixo.</p>
+        <p> <b> limiteVertice(forma, eixo):</b> retorna os valores minimo e maximo de um poligono em um eixo. </p>
+        <p> <b> verificarColisao(forma1, forma2):</b> retorna verdadeiro ou falso para um teste de colisão entre duas formas. </p>
+        <p> <b> verificar(objeto1, objeto2): </b>verifica a colisão entre dois objetos do jogo. </p>
+        <p> <b> verificarRaio(objeto): </b> verifica se há algum objeto no raio do 'objeto' que está verificando colisão. </p>
+        <hr />
+        <h1> controle.js </h1>
+        <br>
+        <h2> Classes </h2>
+        <p> <b>Controle: </b>Armazena os movimentos realizados pelo jogador na tela, lendo movimentos do mouse e/ou do touch. </p>
+        <br>
+        <h3> Controle: Funções </h3>
+        <p> <b> atualizar(dt): </b>atualiza as informações do controle do usuário</p>
+        <p> <b> ligar(e):</b> é acionado quando um toque/clique é detectado, ligando o controle, salvando a posição do clique e calculando a velocidade do movimento.</p>
+        <p> <b> desligar(e): </b>é acionado quando o jogador "solta" o controle, deligando a movimentação. </p>
+        <p> <b> mover(e):</b> atualiza a movimentação enquanto o controle estiver ligado (usuário mantendo o toque pressionado). </p>
+        <hr />
+        <h1> hud.js </h1>
+        <br>
+        <h2> Funções </h2>
+            <p> <b> desenharHud(ct):</b> chama todos os huds a serem desenhados na tela 'ct'.</p>
+            <p> <b> pontuacao(ct):</b> exibe a pontuação atual do jogador na tela.</p>
+    </body>
+</html>
