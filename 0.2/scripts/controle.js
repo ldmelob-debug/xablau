@@ -23,6 +23,23 @@ class Controle {
         cv.addEventListener('contextmenu', function(event) { event.preventDefault();})
 
     }
+    //Retornar offset
+    offset(e) {
+        let x;
+        let y;
+        if (e.touches && e.touches.length > 0) {
+            //TOUCH
+            x = e.touches[0].pageX;
+            y = e.touches[0].pageY;
+        } else {
+            x = e.pageX;
+            y = e.pageY;
+        }
+        let xOff = x - tela.canvas.offsetLeft;
+        let yOff = y - tela.canvas.offsetTop;
+        return [xOff, yOff];
+
+    }
 
     // Atualizacao do clock
     atualizar(dt) {
@@ -55,18 +72,12 @@ class Controle {
 
     //  Mouse e clicado
     ligar(e) {
-
         e.preventDefault()
+        let x=this.offset(e)[0];
+        let y=this.offset(e)[1];
         this.movendo = true;
-        if (e.touches && e.touches.length > 0) {
-            //  Touch
-            this.posia = (e.touches[0].pageX - (tela.tamanho[0]/2)) / tela.dimensao;
-            this.posY = (e.touches[0].pageY - (tela.tamanho[0]/2)) / tela.dimensao;
-        } else {
-            // Mouse
-            this.posia = (e.offsetX - (tela.tamanho[0]/2)) / tela.dimensao;
-            this.posY = (e.offsetY - (tela.tamanho[0]/2)) / tela.dimensao;
-        }
+        this.posia = (x - (tela.tamanho[0]/2)) / tela.dimensao;
+        this.posY = (y - (tela.tamanho[0]/2)) / tela.dimensao;
         this.atuY = this.posY;
 
     }
@@ -84,17 +95,11 @@ class Controle {
 
         e.preventDefault()
         if (this.movendo) {
-            if (e.touches && e.touches.length > 0) {
-                //  Touch
-                this.posia = (e.touches[0].pageX - (tela.tamanho[0]/2)) / tela.dimensao;
-                this.posY = (e.touches[0].pageY - (tela.tamanho[0]/2)) / tela.dimensao;
-            } else {
-                // Mouse
-                this.posia = (e.offsetX - (tela.tamanho[0]/2)) / tela.dimensao;
-                this.posY = (e.offsetY - (tela.tamanho[0]/2)) / tela.dimensao;
-            }
+            let x=this.offset(e)[0];
+            let y=this.offset(e)[1];
+            this.posia = (x - (tela.tamanho[0]/2)) / tela.dimensao;
+            this.atuY = (y - (tela.tamanho[0]/2)) / tela.dimensao;
         }
         
     }
-
 }
