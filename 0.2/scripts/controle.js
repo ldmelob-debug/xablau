@@ -58,8 +58,15 @@ class Controle {
 
         e.preventDefault()
         this.movendo = true;
-        this.posia = (e.offsetX - (tela.tamanho[0]/2)) / tela.dimensao;
-        this.posY = (e.offsetY - (tela.tamanho[0]/2)) / tela.dimensao;
+        if (e.touches && e.touches.length > 0) {
+            //  Touch
+            this.posia = (e.touches[0].pageX - (tela.tamanho[0]/2)) / tela.dimensao;
+            this.posY = (e.touches[0].pageY - (tela.tamanho[0]/2)) / tela.dimensao;
+        } else {
+            // Mouse
+            this.posia = (e.offsetX - (tela.tamanho[0]/2)) / tela.dimensao;
+            this.posY = (e.offsetY - (tela.tamanho[0]/2)) / tela.dimensao;
+        }
         this.atuY = this.posY;
 
     }
@@ -77,9 +84,17 @@ class Controle {
 
         e.preventDefault()
         if (this.movendo) {
-            this.posia = (e.offsetX - (tela.tamanho[0]/2)) / tela.dimensao;
-            this.atuY = (e.offsetY - (tela.tamanho[0]/2)) / tela.dimensao;
+            if (e.touches && e.touches.length > 0) {
+                //  Touch
+                this.posia = (e.touches[0].pageX - (tela.tamanho[0]/2)) / tela.dimensao;
+                this.posY = (e.touches[0].pageY - (tela.tamanho[0]/2)) / tela.dimensao;
+            } else {
+                // Mouse
+                this.posia = (e.offsetX - (tela.tamanho[0]/2)) / tela.dimensao;
+                this.posY = (e.offsetY - (tela.tamanho[0]/2)) / tela.dimensao;
+            }
         }
         
     }
+
 }
