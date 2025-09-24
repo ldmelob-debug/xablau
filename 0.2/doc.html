@@ -8,13 +8,15 @@
         <h1> principal.js </h1>
         <br>
         <h2> Execução direta </h2>
-        <p> Define o corpo da página (body), os recursos do jogo (classes Jogo, Tela, Controle e Loop). Inicia o loop do jogo.</p>
+        <p> Define o corpo da página (body). Inicia o loop do jogo.</p>
         <p></p>
         <br>
         <h2> Funções </h2>
         <p> <b>atualiza(delta):</b> atualiza aplicando toda a lógica do jogo.</p>
         <p> <b>desenha():</b> desenha todos os objetos do jogo na tela</p>
         <p> <b>iniciar():</b> inicia o jogo.</p>
+        <p> <b>recursos():</b> carregaos recursos do jogo (classes Jogo, Tela, Controle e Loop).</p>
+        <p> <b>religar(janela):</b> volta o jogo do início.</p>
         <hr />
         <h1>jogo.js</h1>
         <br>
@@ -22,10 +24,11 @@
         <p>  <b> Jogo:</b> esta classe possui o tamanho do jogo, a proporcao dele em relação a tela, os objetos do jogo, a semente de aleatoriedade, a velocidade do jogo, a aceleração do jogador, a pontuação do jogador e o próprio jogador. Todas as funções deste arquivo são pertencentes a esta classe</p>
         <br>
         <h3> Jogo: Funções </h3>
+        <p> <b> removerIndicador(ind):</b> remove o indicador 'ind' do jogo.</p>
         <p> <b> removerObjeto(obj):</b> remove o objeto 'obj' do jogo.</p>
         <p> <b> atualizar(delta):</b> chama a atualização e informa o delta do tempo para todos os objetos e para o jogador. </p>
         <p> <b> desenhar(ctx): </b> avisa para todos os objetos desenharem no canvas 'ctx'. </p>
-        <p> <b> gerarPinheiro():</b> gera pinheiros aleatoriamente. </p>
+        <p> <b> gerarObjetos():</b> gera objetos aleatoriamente. </p>
         <p> <b> </b> </p>
         <hr />
         <h1> tela.js </h1>
@@ -71,20 +74,30 @@
         <h1> objetos.js </h1>
         <br>
         <h2> Classes </h2>
+        <p> <b> Obstaculo (Objeto): </b>possui as características gerais dos obstáculos.</p>
         <p> <b> Snowboard (Objeto): </b> possui velocidade, rotação e rotaçao almejada.  </p>
-        <p> <b> Pinheiro (Objeto): </b> possui altura pré-determinada para calcular suas partes. </p>
+        <p> <b> Pinheiro (Obstaculo): </b> possui altura pré-determinada para calcular suas partes. </p>
+        <p> <b> Pedra (Obstaculo): </b> obstaculo gerado aleatoriamente. </p>
+        <br>
+        <h3> Obstaculo (Objeto): Funções</h3>
+        <p> <b> variarCor(r, g, b): </b> varia o vermelho, verde e azul fornecidos aleatoriamente entre -30 e 30. </p>
+         <p> <b> atualizar(delta):</b> verifica se o objeto foi superado pelo jogador e remove ele ao sair do mapa.</p>
         <br>
         <h3> Snowboard (Objeto): Funções </h3>
+        <p> <b>tamanhoForma(parte): </b> retorna o tamanho de uma parte específica de um objeto.</p>
         <p> <b> bloqpos(): </b> bloquea o jogador de sair da tela.</p>
         <p> <b> rodaPonto(x, y, entidade): </b> rotaciona as vértices de acordo com a rotação passada pelo controle. </p>
+        <p> <b> fim():</b> é ativado quando o jogador perde.</p>
         <p> <b> rodar():</b> recebe as informações do controle e faz a rotação das vértices.</p>
         <p> <b> criarPartes():</b> cria as três partes da prancha: a base retangular e as duas pontas circulares.</p>
         <p> <b> atualizar(delta):</b> recebe as informações do controle e atualiza velocidade, posição e rotação.</p>
+        <p> <b> pulo(dt): </b> trata da ação de pular do jogador.</p>
         <br>
-        <h3> Pinheiro (Objeto): Funções </h3>
-        <p> <b> variarCor(r, g, b): </b> varia o vermelho, verde e azul fornecidos aleatoriamente entre -30 e 30. </p>
+        <h3> Pinheiro (Obstaculo): Funções </h3>
         <p> <b> criarPartes():</b> cria as partes do pinheiro: tronco e copas. </p>
-        <p> <b> atualizar(delta):</b> verifica se o objeto foi superado pelo jogador e remove ele ao sair do mapa.</p>
+        <br>
+        <h3> Pedra (Obstaculo): Funções </h3>
+        <p> <b> criarPartes():</b> cria as partes da pedra. </p>
         <hr />
         <h1> desenho.js </h1>
         <br>
@@ -122,6 +135,9 @@
         <p> <b>Controle: </b>Armazena os movimentos realizados pelo jogador na tela, lendo movimentos do mouse e/ou do touch. </p>
         <br>
         <h3> Controle: Funções </h3>
+        <p> <b> teclado(e):</b> lê as entradas do teclado.</p>
+        <p> <b> desligaTeclado():</b> avisa que o teclado não está mais enviando comandos.</p>
+        <p> <b> offset(e): </b>devolve a posição do mouse dentro do canvas. </p>
         <p> <b> atualizar(dt): </b>atualiza as informações do controle do usuário</p>
         <p> <b> ligar(e):</b> é acionado quando um toque/clique é detectado, ligando o controle, salvando a posição do clique e calculando a velocidade do movimento.</p>
         <p> <b> desligar(e): </b>é acionado quando o jogador "solta" o controle, deligando a movimentação. </p>
