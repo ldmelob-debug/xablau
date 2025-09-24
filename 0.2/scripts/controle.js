@@ -65,9 +65,10 @@ class Controle {
                 this.pular = true;
             }
             //  Define a posição Y do mouse com a atual.
-            this.posY = this.atuY;
+            
         }
-
+        
+        this.posY = this.atuY;
     }
 
     //  Mouse e clicado
@@ -103,3 +104,4 @@ class Controle {
         
     }
 }
+
