@@ -126,6 +126,8 @@ class Snowboard extends Objeto {
     //  Funcao do fim do jogo
     fim() {
         loop.parar();
+        jogo.fim = new Date();
+        relatorio(tela.ctx);
     }
     //  Funcao para atualizar a funcao do jogador.
     atualizar(delta) {

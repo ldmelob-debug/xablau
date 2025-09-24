@@ -7,12 +7,15 @@ class Jogo {
         this.proporcao = this.tamanho[0] / this.tamanho[1];
         this.objetos = [];
         this.indicadores = [];
-        this.aleatorio = new Semente(27031999);
+        this.aleatorio = new Semente(12345678);
         this.velocidade = 100;
         this.aceleracao = 0.1;
         this.pontuacao = 0;
         this.jogador = new Snowboard(this.tamanho[0] / 2, this.tamanho[1] / 6);
         this.gravidade = 10;
+        this.inicio = new Date();
+        this.fim = null;
+
     }
 
     removerIndicador(ind) {

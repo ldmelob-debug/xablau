@@ -27,16 +27,16 @@ class Tela {
             //Modo paisagem
             this.tamanho[0] = altura * jogo.proporcao;
             this.tamanho[1] = altura;
-            canvas.style.marginTop = '0px';
-            canvas.style.marginLeft = (largura - this.tamanho[0]) / 2 + 'px';
+            canvas.style.top = '0px';
+            canvas.style.left = (largura - this.tamanho[0]) / 2 + 'px';
 
         } else {
 
             //Modo retrato
             this.tamanho[0] = largura;
             this.tamanho[1] = largura / jogo.proporcao;
-            canvas.style.marginTop = (altura - this.tamanho[1]) / 2 + 'px';
-            canvas.style.marginLeft = '0px';
+            canvas.style.top = (altura - this.tamanho[1]) / 2 + 'px';
+            canvas.style.left = '0px';
 
         }
 
@@ -54,6 +54,7 @@ class Tela {
         canvas.id = 'tela';
         document.body.appendChild(canvas);
         canvas.style.display = 'block';
+        canvas.style.position ='absolute';
         return canvas;
     }
     
