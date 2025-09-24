@@ -92,7 +92,7 @@ class Controle {
             } else if(this.posia<this.posi) {
                 this.posi-=300*dt;
             }
-            if (this.posY - this.atuY > 40) {
+            if (this.posY - this.atuY > 15) {
                 this.pular = true;
             }
             //  Define a posição Y do mouse com a atual.
@@ -133,4 +133,5 @@ class Controle {
         }
         
     }
+
 }
