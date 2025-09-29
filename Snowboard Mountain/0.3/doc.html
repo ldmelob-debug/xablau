@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Snowboard Mountain - Documentação</title>
+    <style>
+        body { font-family: sans-serif; line-height: 1.6; padding: 20px; max-width: 900px; margin: auto; }
+        h1, h2, h3 { color: #333; border-bottom: 1px solid #ccc; padding-bottom: 5px; }
+        h1 { font-size: 2em; }
+        h2 { font-size: 1.5em; margin-top: 40px; }
+        h3 { font-size: 1.2em; margin-top: 30px; border-bottom: none; }
+        code { background-color: #f4f4f4; padding: 2px 6px; border-radius: 4px; font-family: monospace; }
+        p { margin-bottom: 10px; }
+        b { color: #555; }
+        hr { border: 0; border-top: 2px solid #eee; margin: 40px 0; }
+    </style>
+</head>
+<body>
+    <h1>Documentação do Jogo: Snowboard Mountain</h1>
+    <p>Visão geral da arquitetura e dos componentes do jogo.</p>
+
+    <!-- ================================================== -->
+    <h2>Arquivos Principais (Core)</h2>
+    <!-- ================================================== -->
+
+    <h3>principal.js</h3>
+    <p><b>Propósito:</b> Ponto de entrada do jogo. Responsável por inicializar todos os sistemas, configurar a página e gerenciar o estado inicial (como o botão "Iniciar Jogo").</p>
+    <ul>
+        <li><code>recursos()</code>: Instancia os objetos principais como <code>Jogo</code>, <code>Tela</code>, <code>Controle</code> e <code>Loop</code>.</li>
+        <li><code>atualiza(delta)</code> e <code>desenha()</code>: Funções de alto nível que são passadas para o game loop e que delegam a lógica para o objeto <code>jogo</code>.</li>
+        <li><code>iniciarJogoEAudio()</code>: Ativado pelo clique do usuário, inicializa o <code>AudioContext</code> (necessário por políticas de navegador) e inicia o jogo.</li>
+    </ul>
+
+    <h3>loop.js</h3>
+    <p><b>Propósito:</b> Implementa um game loop de timestep fixo, garantindo que a lógica do jogo (física, movimento) execute de forma consistente, independentemente da taxa de quadros (FPS) do dispositivo.</p>
+    <ul>
+        <li><b>Classe <code>Loop</code></b>: Controla o ciclo de atualização e desenho.</li>
+        <li><code>inicio()</code> e <code>parar()</code>: Controlam a execução do loop.</li>
+    </ul>
+
+    <h3>jogo.js</h3>
+    <p><b>Propósito:</b> O cérebro do jogo. Gerencia o estado geral, incluindo o jogador, obstáculos, pontuação, velocidade e a lógica de geração de objetos.</p>
+    <ul>
+        <li><b>Classe <code>Jogo</code></b>: Contém todas as entidades ativas (objetos, partículas, indicadores) e variáveis de estado (pontuação, fim de jogo).</li>
+        <li><code>atualizar(delta)</code>: Itera sobre todos os objetos e chama seus respectivos métodos de atualização. Controla a geração de novos obstáculos.</li>
+        <li><code>desenhar(ctx)</code>: Orquestra o desenho de todos os elementos visíveis na tela.</li>
+        <li><code>removerObjeto(obj)</code>: Remove um objeto do jogo quando ele sai da tela.</li>
+    </ul>
+
+    <h3>tela.js</h3>
+    <p><b>Propósito:</b> Gerencia o elemento <code>&lt;canvas&gt;</code>, o contexto de renderização 2D e o ajuste do tamanho da tela.</p>
+    <ul>
+        <li><b>Classe <code>Tela</code></b>: Abstrai a interação com o canvas.</li>
+        <li><code>ajustar()</code>: Redimensiona o canvas para preencher a janela do navegador, mantendo a proporção do jogo.</li>
+    </ul>
+
+    <!-- ================================================== -->
+    <h2>Entidades e Objetos do Jogo</h2>
+    <!-- ================================================== -->
+
+    <h3>objeto.js</h3>
+    <p><b>Propósito:</b> Define as classes base para todos os objetos renderizáveis no jogo.</p>
+    <ul>
+        <li><b>Classe <code>Parte</code></b>: A unidade de construção fundamental de um objeto. Pode ser um polígono (com <code>vertices</code>) ou um círculo (com <code>raio</code>). Contém informações de posição relativa, cor e se colide.</li>
+        <li><b>Classe <code>Objeto</code></b>: A classe base para qualquer entidade no jogo (jogador, obstáculos). É composta por um array de <code>Parte</code>s e possui posição (x, y) no mundo do jogo.</li>
+    </ul>
+
+    <h3>objetos.js</h3>
+    <p><b>Propósito:</b> Contém as implementações concretas de todos os objetos do jogo, herdando da classe <code>Objeto</code>.</p>
+    <ul>
+        <li><b>Classe <code>Snowboard</code></b>: Representa o jogador. Contém a lógica de movimento, pulo, rotação e detecção de colisão. Também gera partículas de neve ao se mover.</li>
+        <li><b>Classe <code>Obstaculo</code></b>: Classe base para todos os obstáculos. Gerencia a lógica de pontuação (ultrapassado, pulado, raspado) e sua remoção ao sair da tela.</li>
+        <li><b>Classe <code>Pedra</code> e <code>Pinheiro</code></b>: Obstáculos específicos com formas geradas proceduralmente.</li>
+        <li><b>Classe <code>Lapide</code></b>: Objeto que aparece no local da morte do jogador (ainda a ser implementado na lógica de jogo).</li>
+    </ul>
+
+    <h3>particula.js</h3>
+    <p><b>Propósito:</b> Define o sistema de partículas para efeitos visuais.</p>
+    <ul>
+        <li><b>Classe <code>Particula</code></b>: Representa uma pequena partícula com posição, velocidade, tempo de vida, cor e gravidade. Usada para a neve levantada pela prancha e para a explosão de colisão.</li>
+    </ul>
+
+    <h3>indicador.js</h3>
+    <p><b>Propósito:</b> Define o texto flutuante que aparece para dar feedback de pontuação.</p>
+    <ul>
+        <li><b>Classe <code>Indicador</code></b>: Um texto que aparece em uma posição, sobe e desaparece após um tempo. Ex: "+3", "+5".</li>
+    </ul>
+
+    <!-- ================================================== -->
+    <h2>Sistemas</h2>
+    <!-- ================================================== -->
+
+    <h3>colisao.js</h3>
+    <p><b>Propósito:</b> Implementa um sistema robusto de detecção de colisão 2D usando o <b>Teorema do Eixo de Separação (SAT)</b>. Isso permite a detecção precisa de colisões entre polígonos convexos e círculos.</p>
+    <ul>
+        <li><code>verificarRaio(objeto)</code>: A primeira fase (<i>broad phase</i>), que filtra rapidamente os objetos que estão próximos o suficiente para potencialmente colidir, usando um teste de raio simples.</li>
+        <li><code>verificar(objeto1, objeto2)</code>: A segunda fase (<i>narrow phase</i>), que executa o algoritmo SAT completo apenas nos pares de objetos que passaram pela primeira fase.</li>
+        <li><b>Funções auxiliares</b>: Inclui funções matemáticas para projeção de vetores, normalização, cálculo de eixos, etc., que são os blocos de construção do SAT.</li>
+    </ul>
+
+    <h3>controle.js</h3>
+    <p><b>Propósito:</b> Gerencia toda a entrada do usuário, seja por mouse, toque ou teclado.</p>
+    <ul>
+        <li><b>Classe <code>Controle</code></b>: Mantém o estado da entrada (se o controle está ativo, posição do toque/mouse).</li>
+        <li><code>ligar()</code>, <code>mover()</code>, <code>desligar()</code>: Eventos que capturam o início, o movimento e o fim de um clique ou toque, atualizando a posição que guia o movimento do jogador.</li>
+        <li><code>teclado()</code>: Captura eventos de teclado (como a barra de espaço para pular).</li>
+    </ul>
+
+    <h3>audio.js</h3>
+    <p><b>Propósito:</b> Gerencia toda a reprodução de áudio usando a Web Audio API. Todos os sons são gerados proceduralmente.</p>
+    <ul>
+        <li><b>Objeto <code>audio</code></b>: Singleton que encapsula o <code>AudioContext</code> e as funções de som.</li>
+        <li><code>inicializar()</code>: Cria o <code>AudioContext</code>.</li>
+        <li><code>criarVento()</code>: Gera ruído branco contínuo de baixo volume para simular o som do vento.</li>
+        <li><code>pulo()</code>: Gera um som de tom ascendente.</li>
+        <li><code>recompensa('agudo' | 'grave')</code>: Gera um som "brilhante" de onda quadrada, típico de jogos retrô, para recompensas.</li>
+        <li><code>colisao()</code>: Gera um "burst" curto e alto de ruído branco para simular um impacto.</li>
+    </ul>
+
+    <h3>desenho.js</h3>
+    <p><b>Propósito:</b> Fornece a função de baixo nível para desenhar uma <code>Parte</code> de um objeto no canvas.</p>
+    <ul>
+        <li><code>exibir(ctx, parte, x, y)</code>: Recebe um contexto de canvas, uma <code>Parte</code> e uma posição global, e desenha a forma correspondente (círculo ou polígono).</li>
+    </ul>
+
+    <h3>hud.js</h3>
+    <p><b>Propósito:</b> Responsável por desenhar a Interface do Usuário (Heads-Up Display), como a pontuação e a tela de fim de jogo.</p>
+    <ul>
+        <li><code>desenharHud(ctx)</code>: Função principal que chama outras funções para desenhar os diferentes elementos da HUD.</li>
+        <li><code>pontuacao(ctx)</code>: Desenha a pontuação atual no canto da tela.</li>
+        <li><code>fimDeJogo(ctx)</code>: Desenha o painel de "Fim de Jogo" com o relatório final.</li>
+    </ul>
+
+    <h3>semente.js</h3>
+    <p><b>Propósito:</b> Implementa um gerador de números aleatórios (RNG) baseado em semente. Isso permite que as fases do jogo sejam reproduzíveis se a mesma semente for usada.</p>
+    <ul>
+        <li><b>Classe <code>Semente</code></b>: O gerador.</li>
+        <li><code>decimal()</code>: Retorna um número pseudoaleatório entre 0 e 1.</li>
+        <li><code>entre(min, max)</code>: Retorna um inteiro pseudoaleatório dentro de um intervalo.</li>
+    </ul>
+
+</body>
+</html>
