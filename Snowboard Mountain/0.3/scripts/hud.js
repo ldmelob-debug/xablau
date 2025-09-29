@@ -65,9 +65,14 @@ function salvarImagem() {
     salvar.style.top = parseInt(tela.canvas.style.top) + (tela.tamanho[1]*0.65) + 'px';
 
     document.body.appendChild(salvar);
-    salvar.onclick = function() {
+
+    const handleSalvar = (e) => {
+        e.preventDefault();
         salvarimg();
-    }
+    };
+
+    salvar.onclick = handleSalvar;
+    salvar.addEventListener('touchend', handleSalvar, { once: true });
 }
 function salvarimg() {
     const imgData = tela.canvas.toDataURL("image/png");
@@ -95,8 +100,13 @@ function reiniciarbt() {
     reiniciar.style.top = parseInt(tela.canvas.style.top) + (tela.tamanho[1]*0.75) + 'px';
 
     document.body.appendChild(reiniciar);
-    reiniciar.onclick = function() {
+
+    const handleReiniciar = (e) => {
+        e.preventDefault();
         religar(reiniciar);
-    }
+    };
+
+    reiniciar.onclick = handleReiniciar;
+    reiniciar.addEventListener('touchend', handleReiniciar, { once: true });
 
 }
