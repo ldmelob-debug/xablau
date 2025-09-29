@@ -81,9 +81,16 @@ function criarBotaoIniciar() {
 
     document.body.appendChild(botaoIniciar);
 
-    botaoIniciar.onclick = function() {
+    // Função para lidar com o clique/toque e iniciar o jogo.
+    // Usamos uma função nomeada para evitar que o evento seja disparado duas vezes
+    // (uma para touchend, outra para o click simulado).
+    const handleStart = function(e) {
+        e.preventDefault(); // Previne o comportamento padrão (como zoom ou scroll)
         iniciarJogoEAudio(botaoIniciar);
     };
+
+    botaoIniciar.onclick = handleStart; // Para desktops
+    botaoIniciar.addEventListener('touchend', handleStart, { once: true }); // Para touch
 }
 
 function iniciarJogoEAudio(botao) {
@@ -93,8 +100,11 @@ function iniciarJogoEAudio(botao) {
         audio.criarVento();
     }
 
-    // Remove o botão da tela
-    document.body.removeChild(botao);
+    // Garante que o botão ainda existe antes de tentar removê-lo
+    if (botao && botao.parentNode) {
+        // Remove o botão da tela
+        document.body.removeChild(botao);
+    }
 
     // Inicia o jogo
     iniciar();
